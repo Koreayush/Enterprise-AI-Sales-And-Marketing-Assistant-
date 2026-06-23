@@ -1,0 +1,42 @@
+Acme Enterprise Suite - Product Manual
+
+Overview
+
+Acme Enterprise Suite is a unified sales and marketing platform combining
+CRM, email automation, and AI-powered customer insights into a single
+dashboard.
+
+Core Features
+
+1. Contact Management: Centralized customer database with activity timelines,
+   deal tracking, and custom fields.
+2. Email Automation: Drip campaigns, A/B testing, and send-time optimization.
+3. AI Insights: Predictive lead scoring and churn risk alerts powered by
+   machine learning models trained on your historical deal data.
+4. Reporting Dashboard: Real-time pipeline visibility with customizable
+   reports and exportable charts.
+
+Onboarding Process
+
+New customers are assigned a dedicated implementation specialist who
+guides setup over a typical 2-week onboarding period. This includes data
+migration, integration configuration, and team training sessions.
+
+Integrations
+
+Acme integrates natively with Salesforce, HubSpot, Slack, Microsoft Teams,
+Gmail, and Outlook. A public REST API and webhook support are available
+on the Enterprise plan for custom integrations.
+
+Support Tiers
+
+- Professional plan: Standard support with a 24-hour response SLA via email.
+- Enterprise plan: Priority support with a 2-hour response SLA, live chat,
+  and a dedicated customer success manager.
+
+Customer Success Stories
+
+Mid-market and enterprise customers across healthcare, financial services,
+and SaaS industries have used Acme to consolidate fragmented sales
+tooling into a single platform, reducing administrative overhead for
+sales teams.

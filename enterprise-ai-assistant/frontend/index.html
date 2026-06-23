@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise AI Assistant — Sales & Marketing</title>
+    <meta name="description"
+        content="AI-powered sales and marketing assistant with hybrid RAG, anti-hallucination evaluation, and personalized email generation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#grad1)" />
+                        <path d="M2 17L12 22L22 17" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M2 12L12 17L22 12" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <defs>
+                            <linearGradient id="grad1" x1="2" y1="2" x2="22" y2="22">
+                                <stop offset="0%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="#a855f7" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">Sales AI</span>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <span class="nav-label">Main</span>
+            <button class="nav-item active" data-page="chat" id="nav-chat">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                </svg>
+                <span>Chat</span>
+            </button>
+            <button class="nav-item" data-page="email" id="nav-email">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <span>Email Generator</span>
+            </button>
+            <button class="nav-item" data-page="upload" id="nav-upload">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+                <span>Upload Docs</span>
+            </button>
+        </div>
+
+        <div class="nav-section">
+            <span class="nav-label">Analytics</span>
+            <button class="nav-item" data-page="evaluate" id="nav-evaluate">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+                <span>Evaluation</span>
+            </button>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="health-badge" id="health-badge">
+                <span class="health-dot"></span>
+                <span class="health-text">Checking...</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- ============ CHAT PAGE ============ -->
+        <section class="page active" id="page-chat">
+            <div class="page-header">
+                <div>
+                    <h1>AI Chat Assistant</h1>
+                    <p class="page-subtitle">Ask questions grounded in your company documents</p>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="welcome-message">
+                        <div class="welcome-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#grad2)"
+                                stroke-width="1.5">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" />
+                                <path d="M2 17L12 22L22 17" />
+                                <path d="M2 12L12 17L22 12" />
+                                <defs>
+                                    <linearGradient id="grad2" x1="2" y1="2" x2="22" y2="22">
+                                        <stop offset="0%" stop-color="#6366f1" />
+                                        <stop offset="100%" stop-color="#a855f7" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <h2>Welcome to Acme AI Assistant</h2>
+                        <p>I can answer questions about your company documents with source citations and
+                            anti-hallucination evaluation.</p>
+                        <div class="suggestion-chips">
+                            <button class="chip" onclick="askSuggestion('What is enterprise pricing?')">💰 Enterprise
+                                pricing</button>
+                            <button class="chip" onclick="askSuggestion('What ROI can customers expect?')">📈 Expected
+                                ROI</button>
+                            <button class="chip" onclick="askSuggestion('Do you have healthcare solutions?')">🏥
+                                Healthcare solutions</button>
+                            <button class="chip" onclick="askSuggestion('What security certifications do you have?')">🔒
+                                Security certs</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <div class="context-toggle" id="context-toggle">
+                        <button class="toggle-btn" id="toggle-context-btn" onclick="toggleContext()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 16v-4" />
+                                <path d="M12 8h.01" />
+                            </svg>
+                            Add customer context
+                        </button>
+                        <div class="context-field hidden" id="context-field">
+                            <input type="text" id="customer-context"
+                                placeholder="e.g., Healthcare client, Enterprise tier...">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <textarea id="chat-input" placeholder="Ask about your company documents..." rows="1"
+                            onkeydown="handleChatKeydown(event)"></textarea>
+                        <button class="send-btn" id="send-btn" onclick="sendChat()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13" />
+                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ EMAIL PAGE ============ -->
+        <section class="page" id="page-email">
+            <div class="page-header">
+                <div>
+                    <h1>Email Generator</h1>
+                    <p class="page-subtitle">Create personalized, data-grounded sales emails</p>
+                </div>
+            </div>
+
+            <div class="email-layout">
+                <div class="email-form-card glass-card">
+                    <h3 class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                        Email Details
+                    </h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="email-name">Customer Name</label>
+                            <input type="text" id="email-name" placeholder="Dr. Jane Smith">
+                        </div>
+                        <div class="form-group">
+                            <label for="email-company">Company</label>
+                            <input type="text" id="email-company" placeholder="City Hospital">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="email-pain">Pain Point</label>
+                            <input type="text" id="email-pain" placeholder="Slow patient onboarding workflows">
+                        </div>
+                        <div class="form-group">
+                            <label for="email-type">Email Type</label>
+                            <select id="email-type">
+                                <option value="cold outreach">Cold Outreach</option>
+                                <option value="follow-up">Follow-up</option>
+                                <option value="renewal">Renewal</option>
+                                <option value="upsell">Upsell</option>
+                                <option value="re-engagement">Re-engagement</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-context">Additional Context</label>
+                            <input type="text" id="email-context" placeholder="Referred by mutual contact">
+                        </div>
+                    </div>
+                    <button class="primary-btn" id="generate-email-btn" onclick="generateEmail()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+                        Generate Email
+                    </button>
+                </div>
+
+                <div class="email-preview-card glass-card">
+                    <div class="preview-header">
+                        <h3 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                            Email Preview
+                        </h3>
+                        <button class="icon-btn" id="copy-email-btn" onclick="copyEmail()" title="Copy to clipboard"
+                            style="display:none;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="email-preview-content" id="email-preview">
+                        <div class="empty-state">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1" opacity="0.3">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                            <p>Fill in the details and click Generate to create your personalized email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ UPLOAD PAGE ============ -->
+        <section class="page" id="page-upload">
+            <div class="page-header">
+                <div>
+                    <h1>Upload Documents</h1>
+                    <p class="page-subtitle">Add PDF, TXT, or CSV files to expand your knowledge base</p>
+                </div>
+            </div>
+
+            <div class="upload-area glass-card" id="upload-area">
+                <div class="upload-zone" id="upload-zone" ondragover="handleDragOver(event)"
+                    ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+                    <div class="upload-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                    </div>
+                    <h3>Drag & drop your files here</h3>
+                    <p>or click to browse</p>
+                    <p class="upload-hint">Supports PDF, TXT, CSV • Max 10MB per file</p>
+                    <input type="file" id="file-input" accept=".pdf,.txt,.csv" onchange="handleFileSelect(event)"
+                        hidden>
+                    <button class="secondary-btn" onclick="document.getElementById('file-input').click()">Browse
+                        Files</button>
+                </div>
+
+                <div class="upload-progress hidden" id="upload-progress">
+                    <div class="progress-file">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" />
+                            <polyline points="13 2 13 9 20 9" />
+                        </svg>
+                        <span id="upload-filename">document.pdf</span>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" id="upload-bar"></div>
+                    </div>
+                    <span class="progress-status" id="upload-status">Uploading...</span>
+                </div>
+
+                <div class="upload-history" id="upload-history">
+                    <h3 class="card-title" style="margin-bottom:12px;">Recently Uploaded</h3>
+                    <div id="upload-list">
+                        <p class="empty-hint">No documents uploaded this session</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ EVALUATION PAGE ============ -->
+        <section class="page" id="page-evaluate">
+            <div class="page-header">
+                <div>
+                    <h1>Evaluation Dashboard</h1>
+                    <p class="page-subtitle">Monitor RAG pipeline quality, faithfulness, and anti-hallucination metrics
+                    </p>
+                </div>
+                <div class="page-actions">
+                    <button class="secondary-btn" onclick="runBenchmark()" id="benchmark-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                        Run Benchmark
+                    </button>
+                    <button class="secondary-btn" onclick="saveReport()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+                            <polyline points="17 21 17 13 7 13 7 21" />
+                            <polyline points="7 3 7 8 15 8" />
+                        </svg>
+                        Save Report
+                    </button>
+                </div>
+            </div>
+
+            <div class="metrics-grid" id="metrics-grid">
+                <div class="metric-card glass-card">
+                    <div class="metric-label">Avg Faithfulness</div>
+                    <div class="metric-value" id="metric-faithfulness">—</div>
+                    <div class="metric-target">Target &gt; 0.90</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill faith-fill" id="bar-faithfulness"></div>
+                    </div>
+                </div>
+                <div class="metric-card glass-card">
+                    <div class="metric-label">Answer Relevance</div>
+                    <div class="metric-value" id="metric-relevance">—</div>
+                    <div class="metric-target">Target &gt; 0.85</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill rel-fill" id="bar-relevance"></div>
+                    </div>
+                </div>
+                <div class="metric-card glass-card">
+                    <div class="metric-label">Overall Quality</div>
+                    <div class="metric-value" id="metric-quality">—</div>
+                    <div class="metric-target">Target &gt; 0.70</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill qual-fill" id="bar-quality"></div>
+                    </div>
+                </div>
+                <div class="metric-card glass-card">
+                    <div class="metric-label">Hallucination Rate</div>
+                    <div class="metric-value" id="metric-hallucination">—</div>
+                    <div class="metric-target">Target &lt; 0.05</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill hall-fill" id="bar-hallucination"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="benchmark-results glass-card hidden" id="benchmark-results">
+                <h3 class="card-title">Benchmark Results</h3>
+                <div class="benchmark-status" id="benchmark-status"></div>
+                <div class="benchmark-table-wrap">
+                    <table class="benchmark-table" id="benchmark-table">
+                        <thead>
+                            <tr>
+                                <th>Query</th>
+                                <th>Faithfulness</th>
+                                <th>Relevance</th>
+                                <th>Quality</th>
+                                <th>Hallucinated?</th>
+                            </tr>
+                        </thead>
+                        <tbody id="benchmark-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="report-card glass-card hidden" id="report-card">
+                <h3 class="card-title">Evaluation Report</h3>
+                <pre id="report-content"></pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

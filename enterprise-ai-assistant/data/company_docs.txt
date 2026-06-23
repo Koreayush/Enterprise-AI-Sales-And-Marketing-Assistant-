@@ -1,0 +1,21 @@
+Acme Enterprise Suite Pricing
+
+Our Enterprise plan costs $499 per month per seat, billed annually. It includes
+unlimited API calls, priority support, and a dedicated customer success manager.
+The Professional plan costs $199 per month and includes standard support.
+
+Return on Investment (ROI)
+
+Customers typically see a 35% reduction in operational costs within the first
+six months of adopting the Acme platform. Average payback period is 4 months.
+
+Healthcare Solutions
+
+Acme offers a HIPAA-compliant healthcare module with encrypted PHI storage,
+audit logging, and role-based access control, purpose-built for hospital
+networks and clinics.
+
+Security and Compliance
+
+Acme is SOC 2 Type II certified and undergoes annual third-party penetration
+testing. All data is encrypted at rest using AES-256 and in transit using TLS 1.3.
