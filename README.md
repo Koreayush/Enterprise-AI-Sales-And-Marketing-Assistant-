@@ -3,7 +3,7 @@
 [![Status](https://img.shields.io/badge/status-production%20ready-brightgreen)](https://shields.io)
 [![Architecture](https://img.shields.io/badge/architecture-hybrid%20RAG-blue)](https://shields.io)
 [![Evaluation](https://img.shields.io/badge/evaluation-faithfulness%20gated-purple)](https://shields.io)
-[![License](https://img.shields.io/badge/license-MIT-orange)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-orange)](LICENSE)
 
 A production-ready **Generative AI assistant** for enterprise sales and marketing teams, built on a **hybrid RAG architecture** with automatic evaluation, source-grounded answers, and anti-hallucination guardrails.
 
@@ -277,4 +277,4 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 ## License
 
-MIT License.
+This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
